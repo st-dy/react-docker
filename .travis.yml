@@ -12,5 +12,14 @@ before_install:
 script:
   - docker run -e CI=true okdori/react-docker npm run test -- --coverage
 
-after_success:
-  - echo "Test success!!!"
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "react-docker"
+  env: "Reactdocker-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-688880037208"
+  bucket_path: "react-docker"
+  on:
+    branch: master
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY
